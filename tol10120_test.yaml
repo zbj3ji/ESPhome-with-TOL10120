@@ -1,0 +1,48 @@
+# Example configuration entry
+# I use tank for measuring of water level in my rain water collector (tank)
+esphome:
+    name: water-collector
+
+# My development board with esp-12s
+esp8266:
+  board: esp12e
+
+# We want to connect our device to wifi
+wifi:
+  ssid: "wifi"
+  password: "wifi password"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: water-collector-01 #!secret my_emergency_ssid
+    password: "fallback wifi password"
+
+captive_portal:
+
+# Enable logging to see the communication in terminal
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption: 
+    key : "secret key"
+
+# Over the air setup
+ota:
+  password: "password"
+  platform: esphome
+
+# Example configuration entry for ESP32
+# Change based on your wiring
+i2c:
+  sda: GPIO05
+  scl: GPIO04
+  scan: true
+
+# Our Time of Light sensor w/ update of data every 5 second
+sensor:
+  - platform: tof10120
+    name: "TOF10120 Distance"
+    id: distance_to_water
+    accuracy_decimals: 2
+    update_interval: 5s
